@@ -27,11 +27,11 @@
 				<table>
 					<tr>
 						<td>Coverage</td> 
-						<td>:&nbsp;&nbsp;<b><span id="coverage">%<?php echo intval(100*count($scan['pageVisits'])/count($descEntries)); ?></span></b></td>
+						<td>:&nbsp;&nbsp;<b><span id="coverage">%<?php echo 100*count($scan['pageVisits'])/count($descEntries); ?></span></b></td>
 					</tr>
 					<tr>
 						<td>From IP</td> 
-						<td>:&nbsp;&nbsp;<b><?php echo htmlentities(long2ip($scan['ipaddress']), ENT_QUOTES);?></b></td>
+						<td>:&nbsp;&nbsp;<b><?php echo htmlentities($scan['ipaddress'], ENT_QUOTES);?></b></td>
 					</tr>
 					<tr>
 						<td>Started On</td> 
@@ -43,6 +43,36 @@
 					</tr>
 				</table>
 				<br/>
+				
+				<?php
+					$old_entry = 0;
+					$new_entry = 0;
+					$old_total = 56;
+					$new_total = count($descEntries) - 56;
+					foreach ($scan['pageVisits'] as $key => $value) {
+						if (intval(explode("_", $key)[0]) <= 21) {
+							$old_entry++;
+						} else {
+							$new_entry++;
+						}
+					}
+				?>
+				<table>
+					<tr>
+						<td>Old</td>
+						<td>:&nbsp;&nbsp;<b><?php echo $old_entry . ' / ' . $old_total; ?></b></td>
+					</tr>
+					<tr>
+						<td>New</td>
+						<td>:&nbsp;&nbsp;<b><?php echo $new_entry . ' / ' . $new_total; ?></b></td>
+					</tr>
+					<tr>
+						<td>Total</td>
+						<td>:&nbsp;&nbsp;<b><?php echo count($scan['pageVisits']) . ' / ' . count($descEntries); ?></b></td>
+					</tr>
+				</table>
+				<br/>
+
 				<span class="explanation">purple rows indicate missed cases, other rows indicate hit.</span>
 				<br/><br/>
 				<table class="list">
@@ -167,7 +197,7 @@
 									substr($scan["useragent"], strlen($scan["useragent"]) - 25, 25);
 						}
 
-						echo '<a href="statistics.php?id='.$scan['record'] .'">'.long2ip($scan['ipaddress']).' started on '.date('M dS Y h:i:s A',$scan['starttime']).'</a>&nbsp;&nbsp;(Coverage: '.htmlentities($scan['score'], ENT_QUOTES).')'.' &nbsp;&nbsp;'.htmlentities($uagent, ENT_QUOTES) ;
+						echo '<a href="statistics.php?id='.$scan['record'] .'">'.$scan['ipaddress'].' started on '.date('M dS Y h:i:s A',$scan['starttime']).'</a>&nbsp;&nbsp;(Coverage: '.htmlentities($scan['score'], ENT_QUOTES).')'.' &nbsp;&nbsp;'.htmlentities($uagent, ENT_QUOTES) ;
 						//$brCount++;
 						//if($brCount%4 == 0)
 						echo '<br/>';

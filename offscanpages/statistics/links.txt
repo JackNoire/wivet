@@ -54,3 +54,8 @@
 19_2e3a2#link attached to a swf simple button parameterized onclick event
 20_1e833#html encoded links
 21_1f822#protocol relative links
+22_1c487#element addEventListener
+22_27cc7#jquery document on
+22_3fa39#document addEventListener
+23_1c9fd#setTimeout in sequence
+24_2540b#xhr parameter extraction
